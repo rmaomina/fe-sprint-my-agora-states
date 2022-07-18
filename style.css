@@ -10,10 +10,6 @@ li {
     list-style: none;
 }
 
-h1 {
-
-}
-
 h2 {
     font-size: 1.4rem;
 }
@@ -91,9 +87,6 @@ main > h1 {
 }
 
 /* discussion component */
-.discussion__wrapper {
-}
-
 .discussions__container {
     width: 540px;
 }
