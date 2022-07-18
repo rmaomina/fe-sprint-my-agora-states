@@ -14,7 +14,27 @@ const convertToDiscussion = (obj) => {
   discussionAnswered.className = "discussion__answered";
 
   // TODO: 객체 하나에 담긴 정보를 DOM에 적절히 넣어주세요.
+  const avatarImage = document.createElement("img");
+  avatarImage.classList.add('discussion__avatar--image')
+  avatarImage.src = obj.avatarUrl;
+  avatarImage.alt = `avatar of ${obj.author}`
+  avatarWrapper.append(avatarImage)
 
+  const discussionTitle = document.createElement("h2")
+  discussionTitle.classList.add('discussion__title')
+  const discussionAnchor = document.createElement("a")
+  discussionAnchor.href = obj.url
+  discussionAnchor.textContent = obj.title
+  discussionTitle.append(discussionAnchor)
+
+  const discussionInfo = document.createElement("div")
+  discussionInfo.textContent = `${obj.author} | ${obj.createdAt}`
+  discussionInfo.classList.add('discussion__information')
+  discussionContent.append(discussionTitle, discussionInfo)
+
+  const discussionChecked = document.createElement("p")
+  discussionAnswered.textContent = '☑'
+  discussionAnswered.append(discussionChecked)
 
 
   li.append(avatarWrapper, discussionContent, discussionAnswered);
