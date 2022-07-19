@@ -16,6 +16,9 @@ const getDataLocalStorage = (name) => {
 
 // 객체를 받아 Discussion HTML을 작성합니다.
 const convertToDiscussion = (obj) => {
+  if (!obj) {
+    return
+  }
   const li = document.createElement('li'); 
   li.className = 'discussion__container';
 
@@ -87,7 +90,7 @@ const render = (element, page) => {
   }
 
   let localData = getDataLocalStorage('agoraData')
-  let totalPage = Math.round(localData.length / 10)
+  let totalPage = Math.ceil(localData.length / 10)
   renderNavigation(page, totalPage)
 
   // currentPage === 1? 범위는 0 ~ 10
