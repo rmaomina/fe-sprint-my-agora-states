@@ -178,6 +178,11 @@ render(ul, 1);
 // Submit button EventHandler
 form.addEventListener('submit', createAgoraDiscussion)
 
-
+// 현재 시간 추가
+const todayInfo = document.querySelector('.header__today')
+setInterval(() => {
+  let newDate = new Date
+  todayInfo.textContent = newDate.toLocaleString()
+}, 1000)
 
 

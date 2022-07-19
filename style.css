@@ -37,10 +37,19 @@ main {
     align-items: center;
 }
 
-main > h1 {
-    width: 100%;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+    width: 540px;
     padding: 40px 0 20px;
-    text-align: center;
+}
+
+.header__title {
+}
+
+.header__today {
 }
 
 /* form container */
