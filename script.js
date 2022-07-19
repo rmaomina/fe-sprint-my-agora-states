@@ -61,21 +61,19 @@ const convertToDiscussion = (obj) => {
   return li;
 };
 
-// navigation Element를 생성합니다. 
-const createNavigation = (num) => {
-  const li = document.createElement('li')
-  li.classList.add('navigation__list')
-  li.textContent = num
-  if (num === 1) {
-    li.classList.add('active')
-  }
-  return li
-}
-
-const renderNavigation = (len) => {
+const renderNavigation = (page, total) => {
   navigationContainer.innerHTML = ''
-  for (let i = 1; i <= len; i++) {
-    navigationContainer.append(createNavigation(i))
+
+  for (let i = 0; i < total; i++) {
+    const li = document.createElement('li')
+    li.classList.add('navigation__list')
+    li.textContent = i + 1
+
+    if (li.textContent === page) {
+      li.classList.add('active')
+    }
+
+    navigationContainer.append(li)
   }
   return
 }
@@ -85,31 +83,41 @@ const render = (element, page) => {
   ul.innerHTML = ''
 
   if (page === undefined) {
-    page = 1
+    page = 1 // 현재 클릭한 페이지 번호 
   }
 
   let localData = getDataLocalStorage('agoraData')
-  let pagesNum = Math.round(localData.length / 10)
-  // ::TODO:: Data에서 페이지 범위만큼만 보여주기 
-  // let currentData = localData.slice(page-1, page)
+  let totalPage = Math.round(localData.length / 10)
+  renderNavigation(page, totalPage)
 
-  for (let i = 1; i <= 10; i += 1) {
+  // currentPage === 1? 범위는 0 ~ 10
+  // currentPage === 2? 범위는 10 ~ 20
+  // currentPage === 3? 범위는 20 ~ 30
+  // currentPage === 4? 범위는 30 ~ 40 ... 반복 
+  // 규칙은?? ((page - 1) * 10) ~ (page * 10)
+
+  let startIndex = (page - 1) * 10
+  let endIndex = page * 10
+
+  for (let i = startIndex; i < endIndex; i++) {
     element.append(convertToDiscussion(localData[i]));
   }
 
-  renderNavigation(pagesNum)
+  const pagingBtn  = document.querySelectorAll('.navigation__list')
+
+  for (let li of pagingBtn) {
+    li.addEventListener('click', reRender)
+  }
+
+  const likesBtn = document.querySelector('.discussion__likes')
+  // Likes button EventHandler
+  likesBtn.addEventListener('click', likesEventHandler)
+
   return;
 };
 
-// Page Navigation을 눌렀을 때 해당하는 만큼만 보여주기 
-const pageRender = (element) => {
-  ul.innerHTML = ''
-
-}
-
 // Submit button click시 discussion 객체를 생성합니다.
-const createAgoraDiscussion = (event) => {
-  event.preventDefault()
+const createAgoraDiscussion = () => {
 
   let userName = document.querySelector('#name').value
   let userTitle = document.querySelector('#title').value
@@ -129,19 +137,23 @@ const createAgoraDiscussion = (event) => {
       avatarUrl:
         'https://avatars.githubusercontent.com/u/97888923?s=64&u=12b18768cdeebcf358b70051283a3ef57be6a20f&v=4',
     }
+    userName = ''
+    userTitle = ''
+    userStory = ''
   
     let localData = getDataLocalStorage('agoraData')
     localData.unshift(newObj)
     saveDataLocalStorage(localData)
     render(ul)
 
-    userName = ''
-    userTitle = ''
-    userStory = ''
 
   } else {
     alert('모든 항목을 입력해 주세요.')
   }
+}
+
+const reRender = (event) => {
+  render(ul, event.target.textContent)
 }
 
 const likesEventHandler = (event) => {  
@@ -167,7 +179,6 @@ render(ul);
 // Submit button EventHandler
 form.addEventListener('submit', createAgoraDiscussion)
 
-const likesBtn = document.querySelector('.discussion__likes')
-// Likes button EventHandler
-likesBtn.addEventListener('click', likesEventHandler)
+
+
 
