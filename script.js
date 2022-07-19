@@ -72,7 +72,7 @@ const renderNavigation = (page, total) => {
     li.classList.add('navigation__list')
     li.textContent = i + 1
 
-    if (li.textContent === page) {
+    if (li.textContent === String(page)) {
       li.classList.add('active')
     }
 
@@ -84,10 +84,6 @@ const renderNavigation = (page, total) => {
 // 초기화, element render. +한 페이지에 10개씩 보여줍니다. 
 const render = (element, page) => {
   ul.innerHTML = ''
-
-  if (page === undefined) {
-    page = 1 // 현재 클릭한 페이지 번호 
-  }
 
   let localData = getDataLocalStorage('agoraData')
   let totalPage = Math.ceil(localData.length / 10)
@@ -101,9 +97,10 @@ const render = (element, page) => {
 
   let startIndex = (page - 1) * 10
   let endIndex = page * 10
+  let currentPageData = localData.slice(startIndex, endIndex)
 
-  for (let i = startIndex; i < endIndex; i++) {
-    element.append(convertToDiscussion(localData[i]));
+  for (let i = 0; i < currentPageData.length; i++) {
+    element.append(convertToDiscussion(currentPageData[i]));
   }
 
   const pagingBtn  = document.querySelectorAll('.navigation__list')
@@ -120,7 +117,8 @@ const render = (element, page) => {
 };
 
 // Submit button click시 discussion 객체를 생성합니다.
-const createAgoraDiscussion = () => {
+const createAgoraDiscussion = (event) => {
+  event.preventDefault()
 
   let userName = document.querySelector('#name').value
   let userTitle = document.querySelector('#title').value
@@ -140,15 +138,13 @@ const createAgoraDiscussion = () => {
       avatarUrl:
         'https://avatars.githubusercontent.com/u/97888923?s=64&u=12b18768cdeebcf358b70051283a3ef57be6a20f&v=4',
     }
-    userName = ''
-    userTitle = ''
-    userStory = ''
+    event.target.reset()
   
     let localData = getDataLocalStorage('agoraData')
     localData.unshift(newObj)
     saveDataLocalStorage(localData)
-    render(ul)
 
+    render(ul, '1')
 
   } else {
     alert('모든 항목을 입력해 주세요.')
@@ -177,7 +173,7 @@ if (!localStorage.getItem('agoraData')) {
 }
 
 // LocalStorage에 있는 내용을 HTML에 그려줍니다. 
-render(ul);
+render(ul, 1);
 
 // Submit button EventHandler
 form.addEventListener('submit', createAgoraDiscussion)
