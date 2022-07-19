@@ -104,13 +104,31 @@ main > h1 {
 }
 
 .discussion__avatar--wrapper {
+    position: relative;
+}
+
+.discussion__likes {
     display: flex;
-    flex-flow: row wrap;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    background: url(./img/heart.png) -60px 0px / auto 60px no-repeat;
+    font-size: 16px;
+    color: darkred;
+    cursor: pointer;
+}
+.discussion__likes.checked {
+    background-position: 0 0;
+    color: #fff;
+}
+
+.discussion__avatar--image {
     width: 48px;
-    height: 48px;
+    height: auto;
     border-radius: 50%;
 }
 
