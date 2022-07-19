@@ -42,14 +42,21 @@ main {
     justify-content: space-between;
     align-items: center;
     flex-flow: row wrap;
+    position: relative;
     width: 540px;
     padding: 40px 0 20px;
 }
 
-.header__title {
+.dark-mode {
+    flex: 0 0 30px;
 }
 
-.header__today {
+.darkmode__btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: url(./img/dark-toggle.png) 50% 50% / 30px auto no-repeat;
+    cursor: pointer;
 }
 
 /* form container */
@@ -88,7 +95,6 @@ main {
     resize: none;
 }
 
-
 .form__submit > input {
     width: 100%;
     background-color: blueviolet;
@@ -109,7 +115,7 @@ main {
     padding: 24px 30px;
     border: 1px solid #eee;
     border-radius: 14px;
-    box-shadow: 1px 2px 5px rgba(30, 30, 30, .05);
+    box-shadow: 1px 2px 5px rgba(30, 30, 30, .05);;
 }
 
 .discussion__avatar--wrapper {
@@ -130,6 +136,7 @@ main {
     color: darkred;
     cursor: pointer;
 }
+
 .discussion__likes.checked {
     background-position: 0 0;
     color: #fff;
@@ -187,4 +194,50 @@ main {
     color: #fff;
     font-weight: 600;
     cursor: default;
+}
+
+/* dark-mode */
+[data-theme="dark-mode"] {
+    background-color: #000;
+    color: #fff;
+}
+
+[data-theme="dark-mode"] .darkmode__btn {
+    background: url(./img/light-toggle.png) 50% 50% / 30px auto no-repeat;
+}
+
+[data-theme="dark-mode"] .form__container {
+    background-color: slateblue;
+    border: 1px solid slateblue;
+}
+
+[data-theme="dark-mode"] .form__submit > input {
+    background-color: yellowgreen;
+    color: #333;
+}
+
+[data-theme="dark-mode"] .discussion__container {
+    border: 1px solid #333;
+    background: #111;
+}
+
+[data-theme="dark-mode"] .navigation__list.active {
+    background: yellowgreen;
+    color: #333;
+}
+
+[data-theme="dark-mode"] .discussion__likes {
+    color: darkred;
+}
+
+[data-theme="dark-mode"] .discussion__likes.checked {
+    color: #fff;
+}
+
+[data-theme="dark-mode"] .discussion__information {
+    color: #666;
+}
+
+[data-theme="dark-mode"] .navigation__list {
+    color: #999;
 }

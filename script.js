@@ -185,4 +185,14 @@ setInterval(() => {
   todayInfo.textContent = newDate.toLocaleString()
 }, 1000)
 
-
+// 다크모드 추가
+const darkmodeBtn = document.querySelector('.darkmode__btn')
+darkmodeBtn.addEventListener('click', () => {
+  console.log('light/dark mode toggle')
+  if (document.body.dataset.theme === 'light-mode') {
+    document.body.dataset.theme = 'dark-mode'
+  } else {
+    document.body.dataset.theme = 'light-mode'
+  }
+  
+})
