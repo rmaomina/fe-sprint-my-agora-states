@@ -108,8 +108,7 @@ const pageRender = (element) => {
 }
 
 // Submit button click시 discussion 객체를 생성합니다.
-const createAgoraDiscussion = (event) => {
-  event.preventDefault()
+const createAgoraDiscussion = () => {
 
   let userName = document.querySelector('#name').value
   let userTitle = document.querySelector('#title').value
@@ -129,15 +128,15 @@ const createAgoraDiscussion = (event) => {
       avatarUrl:
         'https://avatars.githubusercontent.com/u/97888923?s=64&u=12b18768cdeebcf358b70051283a3ef57be6a20f&v=4',
     }
+    userName = ''
+    userTitle = ''
+    userStory = ''
   
     let localData = getDataLocalStorage('agoraData')
     localData.unshift(newObj)
     saveDataLocalStorage(localData)
     render(ul)
 
-    userName = ''
-    userTitle = ''
-    userStory = ''
 
   } else {
     alert('모든 항목을 입력해 주세요.')
