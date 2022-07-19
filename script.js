@@ -1,5 +1,6 @@
 const ul = document.querySelector('ul.discussions__container');
 const form = document.querySelector('form.form')
+const navigationContainer = document.querySelector('.navigation')
 
 // LocalStorage에 객체를 저장합니다. 
 const saveDataLocalStorage = (obj) => {
@@ -60,15 +61,51 @@ const convertToDiscussion = (obj) => {
   return li;
 };
 
-// element에 추가합니다. 
-const render = (element) => {
+// navigation Element를 생성합니다. 
+const createNavigation = (num) => {
+  const li = document.createElement('li')
+  li.classList.add('navigation__list')
+  li.textContent = num
+  if (num === 1) {
+    li.classList.add('active')
+  }
+  return li
+}
+
+const renderNavigation = (len) => {
+  navigationContainer.innerHTML = ''
+  for (let i = 1; i <= len; i++) {
+    navigationContainer.append(createNavigation(i))
+  }
+  return
+}
+
+// 초기화, element render. +한 페이지에 10개씩 보여줍니다. 
+const render = (element, page) => {
   ul.innerHTML = ''
+
+  if (page === undefined) {
+    page = 1
+  }
+
   let localData = getDataLocalStorage('agoraData')
-  for (let i = 0; i < localData.length; i += 1) {
+  let pagesNum = Math.round(localData.length / 10)
+  // ::TODO:: Data에서 페이지 범위만큼만 보여주기 
+  // let currentData = localData.slice(page-1, page)
+
+  for (let i = 1; i <= 10; i += 1) {
     element.append(convertToDiscussion(localData[i]));
   }
+
+  renderNavigation(pagesNum)
   return;
 };
+
+// Page Navigation을 눌렀을 때 해당하는 만큼만 보여주기 
+const pageRender = (element) => {
+  ul.innerHTML = ''
+
+}
 
 // Submit button click시 discussion 객체를 생성합니다.
 const createAgoraDiscussion = (event) => {
