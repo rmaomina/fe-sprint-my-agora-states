@@ -1,6 +1,6 @@
 const ul = document.querySelector('ul.discussions__container');
 const form = document.querySelector('form.form')
-const navigationContainer = document.querySelector('.navigation')
+const paginationContainer = document.querySelector('.pagination')
 
 // LocalStorage에 객체를 저장합니다. 
 const saveDataLocalStorage = (obj) => {
@@ -64,19 +64,22 @@ const convertToDiscussion = (obj) => {
   return li;
 };
 
-const renderNavigation = (page, total) => {
-  navigationContainer.innerHTML = ''
+const createPagination = (page, total) => {
+  paginationContainer.innerHTML = ''
 
-  for (let i = 0; i < total; i++) {
+  let totalPageNum = Math.ceil(total / 10)
+
+  for (let i = 1; i <= totalPageNum; i++) {
     const li = document.createElement('li')
-    li.classList.add('navigation__list')
-    li.textContent = i + 1
+    li.classList.add('pagination__list')
+    li.textContent = i
 
     if (li.textContent === String(page)) {
       li.classList.add('active')
     }
 
-    navigationContainer.append(li)
+    li.addEventListener('click', reRender)
+    paginationContainer.append(li)
   }
   return
 }
@@ -86,8 +89,7 @@ const render = (element, page) => {
   ul.innerHTML = ''
 
   let localData = getDataLocalStorage('agoraData')
-  let totalPage = Math.ceil(localData.length / 10)
-  renderNavigation(page, totalPage)
+  createPagination(page, localData.length)
 
   // currentPage === 1? 범위는 0 ~ 10
   // currentPage === 2? 범위는 10 ~ 20
@@ -101,12 +103,6 @@ const render = (element, page) => {
 
   for (let i = 0; i < currentPageData.length; i++) {
     element.append(convertToDiscussion(currentPageData[i]));
-  }
-
-  const pagingBtn  = document.querySelectorAll('.navigation__list')
-
-  for (let li of pagingBtn) {
-    li.addEventListener('click', reRender)
   }
 
   const likesBtn = document.querySelector('.discussion__likes')

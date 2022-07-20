@@ -169,14 +169,14 @@ main {
     font-size: 20px;
 }
 
-.navigation {
+.pagination {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     padding: 10px 0;
 }
 
-.navigation__list {
+.pagination__list {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,7 +189,7 @@ main {
     cursor: pointer;
 }
 
-.navigation__list.active {
+.pagination__list.active {
     background: green;
     color: #fff;
     font-weight: 600;
@@ -221,7 +221,7 @@ main {
     background: #111;
 }
 
-[data-theme="dark-mode"] .navigation__list.active {
+[data-theme="dark-mode"] .pagination__list.active {
     background: yellowgreen;
     color: #333;
 }
@@ -238,6 +238,6 @@ main {
     color: #666;
 }
 
-[data-theme="dark-mode"] .navigation__list {
+[data-theme="dark-mode"] .pagination__list {
     color: #999;
 }
