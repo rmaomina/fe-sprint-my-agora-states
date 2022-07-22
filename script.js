@@ -184,11 +184,6 @@ setInterval(() => {
 // 다크모드 추가
 const darkmodeBtn = document.querySelector('.darkmode__btn')
 darkmodeBtn.addEventListener('click', () => {
-  console.log('light/dark mode toggle')
-  if (document.body.dataset.theme === 'light-mode') {
-    document.body.dataset.theme = 'dark-mode'
-  } else {
-    document.body.dataset.theme = 'light-mode'
-  }
-  
+  let dataAttr = document.body.dataset
+  dataAttr.theme.match('light-mode')?dataAttr.theme = 'dark-mode':dataAttr.theme = 'light-mode'  
 })
