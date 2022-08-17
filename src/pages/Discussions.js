@@ -1,13 +1,20 @@
 import './Discussions.css';
-import Pagination from './Pagination';
+import Discussion from './components/Discussion'
 
-function Discussions() {
+function Discussions({ discussions }) {
+  if (discussions.length === 0) {
+    return <div className="">목록이 없습니다</div>;
+  }
+
   return (
-    <section className="discussion__wrapper">
-      <Pagination />
-      <ul className="discussions__container"></ul>
-    </section>
-  );
+    discussions.map((discussion) => {
+      return (
+        <Discussion 
+          key={discussion.id}
+          discussion={discussion}
+        />)
+    })
+  )
 }
 
 export default Discussions;
