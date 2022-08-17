@@ -1,0 +1,28 @@
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row wrap;
+  position: relative;
+  width: 540px;
+  padding: 40px 0 20px;
+}
+
+.dark-mode {
+  flex: 0 0 30px;
+}
+
+.darkmode__btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: url(../assets/images/dark-toggle.png) 50% 50% / 30px auto no-repeat;
+  cursor: pointer;
+}
+
+/* dark-mode button */
+[data-theme="dark-mode"] .darkmode__btn {
+  background: url(../assets/images/light-toggle.png) 50% 50% / 30px auto no-repeat;
+}
+
