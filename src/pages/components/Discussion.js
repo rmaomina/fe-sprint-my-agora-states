@@ -1,7 +1,8 @@
 function Discussion({discussion}) {
-  const {id, avatarUrl, author, url, title, createdAt, answer} = discussion
+  const { avatarUrl, author, url, title, createdAt, answer } = discussion
+
   return (
-    <li id={id} className="discussion__container">
+    <li className="discussion__container">
       <div className="discussion__avatar--wrapper">
       <img className="discussion__avatar--image"
         src={avatarUrl}
@@ -11,7 +12,7 @@ function Discussion({discussion}) {
         <h2 className="discussion__title"><a href={url}>{title}</a></h2>
         <div className="discussion__information">{author} | {createdAt}</div>
       </div>
-      <div className="discussion__answered"><p>{answer}</p></div>
+      <div className="discussion__answered"><p>✅</p></div>
     </li>
   );
 }

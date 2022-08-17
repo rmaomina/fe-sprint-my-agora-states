@@ -16,17 +16,17 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(`${BASE_URL}/discussions`)
-      .then(res => res.json())
-      .then(result => {
-        setIsLoading(false)
-        setDiscussions(result)
-      })
+    const fetchData = async () => {
+      const data = await fetch(`${BASE_URL}/discussions`).then(res => res.json())
+      setDiscussions(data)
+    }
+    fetchData().catch(console.error)
+    setIsLoading(false)
   }, [])
 
   return (
-    <div className="app" data-theme={isDarkMode?"light-mode":"dark-mode"}>
-      <Header darkModeHandle={setIsDarkMode} />
+    <main data-theme={isDarkMode?"dark-mode":"light-mode"}>
+      <Header setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
       <Form />
       <section className="discussion__wrapper">
         <Pagination />
@@ -34,7 +34,7 @@ function App() {
           {isLoading?<Loading/>:<Discussions discussions={discussions}/>}
         </ul>
       </section>
-    </div>
+    </main>
   );
 }
 

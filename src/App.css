@@ -8,18 +8,18 @@
 body {
   margin: 0;
   padding: 0;
-  color: var(--text);
-  background: var(--background);
 }
 
 main {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
+  color: var(--text);
+  background: var(--background);
 }
 
 
-.app[data-theme='light-mode'] {
+main[data-theme='light-mode'] {
   --text: #111;
   --line: #eee;
   --background: #fff;
@@ -32,7 +32,7 @@ main {
   --page-text: #fff;
 }
 
-.app[data-theme='dark-mode'] {
+main[data-theme='dark-mode'] {
   --text: #fff;
   --line: #333;
   --background: #151515;
